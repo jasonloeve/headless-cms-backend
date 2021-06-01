@@ -1,0 +1,9 @@
+baseUrl: $PRIMARY_SITE_URL
+enabled: true
+handle: default
+hasUrls: true
+language: en
+name: Develop
+primary: true
+siteGroup: 598bb459-cb58-498b-95e0-fa46759a73ce # Jloeve
+sortOrder: 1

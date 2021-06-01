@@ -1,0 +1,45 @@
+version: '3'
+services:
+  develop-web:
+    image: 'flipbox/php:72-apache'
+    container_name: develop-web
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - '.:/var/www/html/'
+    environment:
+      ENVIRONMENT: dev
+      DB_SERVER: develop-db
+      DB_USER: craft
+      DB_PASSWORD: craft
+      DB_DATABASE: craft
+      XDEBUG_ON: "yes"
+      XDEBUG_HOST: "host.docker.internal"
+      XDEBUG_IDEKEY: "PHPSTORM"
+      APACHE_DOCUMENT_ROOT: "/var/www/html/web"
+    networks:
+      - 'develop'
+  develop-db:
+    image: 'mysql:5.7'
+    restart: always
+    container_name: develop-db
+    ports:
+      - '3306:3306'
+    volumes:
+      - 'develop-db:/var/lib/mysql'
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: craft
+      MYSQL_USER: craft
+      MYSQL_PASSWORD: craft
+    networks:
+      - 'develop'
+
+networks:
+  develop:
+    driver: 'bridge'
+
+volumes:
+  develop-db:
+    driver: 'local'
